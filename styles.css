@@ -1,4 +1,4 @@
-/* Global Styles */
+
 :root {
     --primary-color: #2c7be5;
     --secondary-color: #00d97e;
@@ -398,107 +398,226 @@ img {
 
 /* Values Section */
 .values-section {
-    background-color: var(--light-color);
+    position: relative;
+    padding: 100px 0;
+    background: url('https://www.foremanpro.com/wp-content/uploads/2020/12/8GKjllLOqVMMmsFYVvTuKuOxKCHCIO9Y1608670141.jpg') center/cover no-repeat fixed;
+    color: #fff;
+    overflow: hidden;
+}
+
+.values-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(9, 60, 123, 0.85); 
+    z-index: 0;
+}
+
+.values-section .container {
+    position: relative;
+    z-index: 1;
+}
+
+.values-section .section-header h2 {
+    color: #fff;
+}
+
+.values-section .underline {
+    background: var(--secondary-color);
 }
 
 .values-content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
+    margin-top: 50px;
 }
 
 .value-card {
-    background-color: var(--white);
-    padding: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 40px 30px;
     border-radius: 10px;
     text-align: center;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
+    transition: all 0.5s ease;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: fadeInUp 0.8s forwards;
+}
+
+.value-card:nth-child(1) { animation-delay: 0.2s; }
+.value-card:nth-child(2) { animation-delay: 0.4s; }
+.value-card:nth-child(3) { animation-delay: 0.6s; }
+.value-card:nth-child(4) { animation-delay: 0.8s; }
+
+@keyframes fadeInUp {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .value-card:hover {
-    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-10px) !important;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
 .value-icon {
-    width: 70px;
-    height: 70px;
-    background-color: rgba(44, 123, 229, 0.1);
-    color: var(--primary-color);
-    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 25px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 20px;
-    font-size: 1.5rem;
-    transition: var(--transition);
+    background: rgba(0, 217, 126, 0.1);
+    border-radius: 50%;
+    color: var(--secondary-color);
+    font-size: 2rem;
+    transition: all 0.5s ease;
 }
 
 .value-card:hover .value-icon {
-    background-color: var(--primary-color);
-    color: var(--white);
+    background: var(--secondary-color);
+    color: #fff;
+    transform: rotateY(180deg);
 }
 
 .value-card h3 {
-    color: var(--dark-color);
+    color: #fff;
     margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.value-card p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+
+@media (max-width: 768px) {
+    .values-section {
+        background-attachment: scroll;
+        padding: 70px 0;
+    }
+    
+    .value-card {
+        padding: 30px 20px;
+    }
 }
 
 /* Testimonials Section */
 .testimonials-section {
-    background-color: var(--white);
+    background-color: #f9fafc;
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
 }
 
-.testimonials-grid {
+.testimonials-carousel {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.testimonials-track {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    margin-bottom: 40px;
+}
+
+.testimonial-pair {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: 1fr 1fr;
     gap: 30px;
+    flex: 0 0 100%;
+    padding: 10px 0;
 }
 
 .testimonial-card {
-    background-color: var(--light-color);
+    background: white;
+    border-radius: 12px;
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonial-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(44, 123, 229, 0.05) 0%, rgba(0, 217, 126, 0.05) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 0;
+}
+
+.testimonial-card:hover::after {
+    opacity: 1;
 }
 
 .testimonial-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
 .quote {
     position: relative;
     margin-bottom: 20px;
+    z-index: 1;
 }
 
 .quote i:first-child {
     position: absolute;
     top: -10px;
-    left: -10px;
-    font-size: 2rem;
-    color: rgba(44, 123, 229, 0.2);
+    left: -5px;
+    font-size: 2.5rem;
+    color: rgba(44, 123, 229, 0.1);
+    transition: all 0.4s ease;
 }
 
 .quote i:last-child {
     position: absolute;
     bottom: -20px;
-    right: -10px;
-    font-size: 2rem;
+    right: -5px;
+    font-size: 2.5rem;
+    color: rgba(44, 123, 229, 0.1);
+    transition: all 0.4s ease;
+}
+
+.testimonial-card:hover .quote i {
     color: rgba(44, 123, 229, 0.2);
+    transform: scale(1.1);
 }
 
 .quote p {
     font-style: italic;
     font-size: 1rem;
-    line-height: 1.8;
+    line-height: 1.7;
     color: var(--text-color);
+    margin-bottom: 0;
+    position: relative;
+    z-index: 1;
 }
 
 .client-info {
     display: flex;
     align-items: center;
     gap: 15px;
+    margin-top: 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .client-photo {
@@ -506,6 +625,13 @@ img {
     height: 60px;
     border-radius: 50%;
     overflow: hidden;
+    border: 2px solid rgba(44, 123, 229, 0.1);
+    transition: all 0.4s ease;
+}
+
+.testimonial-card:hover .client-photo {
+    border-color: rgba(44, 123, 229, 0.3);
+    transform: scale(1.05);
 }
 
 .client-photo img {
@@ -517,14 +643,80 @@ img {
 .client-details h4 {
     color: var(--dark-color);
     margin-bottom: 5px;
+    font-size: 1.1rem;
 }
 
 .client-details p {
     font-size: 0.9rem;
     color: var(--text-light);
-    margin: 0;
+    margin-bottom: 5px;
 }
 
+.rating {
+    color: #FFC107;
+    font-size: 0.9rem;
+}
+
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.carousel-controls button {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.carousel-controls button:hover {
+    background-color: rgba(44, 123, 229, 0.1);
+}
+
+.carousel-indicators {
+    display: flex;
+    gap: 10px;
+}
+
+.carousel-indicators span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(44, 123, 229, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-indicators span.active {
+    background-color: var(--primary-color);
+    transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+    .testimonial-pair {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .testimonial-card {
+        padding: 25px;
+    }
+    
+    .carousel-controls {
+        margin-top: 20px;
+    }
+}
 /* Team Section */
 .team-section {
     background-color: var(--light-color);
@@ -857,7 +1049,7 @@ img {
     transform: translateY(-5px);
 }
 
-/* Modal */
+
 .modal {
     position: fixed;
     top: 0;
@@ -915,7 +1107,7 @@ img {
     color: var(--dark-color);
 }
 
-/* Animations */
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
