@@ -140,90 +140,29 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('load', animateOnScroll);
 });
 
-// Testimonials Carousel
+// Animate testimonials on scroll
 document.addEventListener('DOMContentLoaded', function() {
-    const track = document.querySelector('.testimonials-track');
-    const cards = document.querySelectorAll('.testimonial-card');
-    const indicatorsContainer = document.querySelector('.carousel-indicators');
-    const prevBtn = document.querySelector('.carousel-prev');
-    const nextBtn = document.querySelector('.carousel-next');
-    let currentIndex = 0;
-    let autoSlideInterval;
-    const slideDuration = 5000; // 5 seconds per slide
-
-    // Create indicators
-    cards.forEach((_, index) => {
-        const indicator = document.createElement('span');
-        if (index === 0) indicator.classList.add('active');
-        indicator.addEventListener('click', () => goToSlide(index));
-        indicatorsContainer.appendChild(indicator);
-    });
-    const indicators = document.querySelectorAll('.carousel-indicators span');
-
-    // Function to update carousel
-    function updateCarousel() {
-        cards.forEach((card, index) => {
-            card.classList.remove('active', 'prev', 'next');
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    
+    function checkScroll() {
+        testimonialCards.forEach(card => {
+            const cardTop = card.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
             
-            if (index === currentIndex) {
-                card.classList.add('active');
-            } else if (index === (currentIndex - 1 + cards.length) % cards.length) {
-                card.classList.add('prev');
-            } else if (index === (currentIndex + 1) % cards.length) {
-                card.classList.add('next');
+            if (cardTop < windowHeight - 100) {
+                card.style.animationPlayState = 'running';
             }
         });
-
-        indicators.forEach((indicator, index) => {
-            indicator.classList.toggle('active', index === currentIndex);
-        });
     }
-
-    // Function to go to specific slide
-    function goToSlide(index) {
-        currentIndex = index;
-        updateCarousel();
-        resetAutoSlide();
-    }
-
-    // Function to go to next slide
-    function nextSlide() {
-        currentIndex = (currentIndex + 1) % cards.length;
-        updateCarousel();
-        resetAutoSlide();
-    }
-
-    // Function to go to previous slide
-    function prevSlide() {
-        currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-        updateCarousel();
-        resetAutoSlide();
-    }
-
-    // Auto slide functionality
-    function startAutoSlide() {
-        autoSlideInterval = setInterval(nextSlide, slideDuration);
-    }
-
-    function resetAutoSlide() {
-        clearInterval(autoSlideInterval);
-        startAutoSlide();
-    }
-
-    // Event listeners
-    nextBtn.addEventListener('click', nextSlide);
-    prevBtn.addEventListener('click', prevSlide);
-
-    // Initialize carousel
-    updateCarousel();
-    startAutoSlide();
-
-    // Pause on hover
-    track.addEventListener('mouseenter', () => {
-        clearInterval(autoSlideInterval);
+    
+    // Initialize all cards as paused
+    testimonialCards.forEach(card => {
+        card.style.animationPlayState = 'paused';
     });
-
-    track.addEventListener('mouseleave', () => {
-        startAutoSlide();
-    });
+    
+    // Check on load
+    checkScroll();
+    
+    // Check on scroll
+    window.addEventListener('scroll', checkScroll);
 });
