@@ -498,7 +498,6 @@ img {
     line-height: 1.7;
 }
 
-
 @media (max-width: 768px) {
     .values-section {
         background-attachment: scroll;
